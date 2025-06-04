@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/proyecto-libreria.iml" filepath="$PROJECT_DIR$/.idea/modules/proyecto-libreria.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/ismac-libreria-matutino-master/proyecto-libreria.ismac-libreria-matutino-master.iml" filepath="$PROJECT_DIR$/.idea/modules/ismac-libreria-matutino-master/proyecto-libreria.ismac-libreria-matutino-master.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/ismac-libreria-matutino-master/proyecto-libreria.ismac-libreria-matutino-master.main.iml" filepath="$PROJECT_DIR$/.idea/modules/ismac-libreria-matutino-master/proyecto-libreria.ismac-libreria-matutino-master.main.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/ismac-libreria-matutino-master/proyecto-libreria.ismac-libreria-matutino-master.test.iml" filepath="$PROJECT_DIR$/.idea/modules/ismac-libreria-matutino-master/proyecto-libreria.ismac-libreria-matutino-master.test.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/libreria-spring/proyecto-libreria.libreria-spring.iml" filepath="$PROJECT_DIR$/.idea/modules/libreria-spring/proyecto-libreria.libreria-spring.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/libreria-spring/proyecto-libreria.libreria-spring.main.iml" filepath="$PROJECT_DIR$/.idea/modules/libreria-spring/proyecto-libreria.libreria-spring.main.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/libreria-spring/proyecto-libreria.libreria-spring.test.iml" filepath="$PROJECT_DIR$/.idea/modules/libreria-spring/proyecto-libreria.libreria-spring.test.iml" />
+    </modules>
+  </component>
+</project>
