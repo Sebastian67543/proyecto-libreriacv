@@ -72,9 +72,9 @@ public class ClienteRepositorioTestIntegracion {
 
     @Test
     public void delete(){
-        if (clienteRepository.existsById(39)){
-            clienteRepository.deleteById(39);
+        if (clienteRepository.existsById(43)){
+            clienteRepository.deleteById(43);
         }
-        assertFalse(clienteRepository.existsById(39), "el id 39, deberia haberse eliminado");
+        assertFalse(clienteRepository.existsById(43), "el id 43, deberia haberse eliminado");
     }
 }

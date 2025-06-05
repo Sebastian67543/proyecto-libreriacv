@@ -39,14 +39,12 @@ public class Libro {
     private String presentacion;
     @Column(name = "precio")
     private Double precio;
-    @Column(name = "categoria")
-    private Categoria categoria;
-    @Column(name = "autor")
-    private Autor autor;
 
     @ManyToOne
-    @JoinColumn(name = "id_libro")
+    @JoinColumn(name = "id_autor")
     private Autor autor;
+    @ManyToOne
+    @JoinColumn(name = "id_categoria")
     private Categoria categoria;
 
     public Libro() {
