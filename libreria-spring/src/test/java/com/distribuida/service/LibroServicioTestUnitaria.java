@@ -68,6 +68,33 @@ public class LibroServicioTestUnitaria {
     }
 
     @Test
+    public void save(){
+        when(autorRepository.save(autor)).thenReturn(autor);
+        Autor autor1 = autorService.save(autor);
+        assertNotNull(autor1);
+        assertEquals("Luis", autor.getNombre());
+        verify(autorRepository, times(1)).save(autor);
+    }
+
+    @Test
+    public void update(){
+        Autor autorActualizado = new Autor(1,"Neymar","Da Silva","Brasil","Santos","0986254793","neyamr@gmail.com");
+        when(autorRepository.findById(1)).thenReturn(Optional.of(autor));
+        when(autorRepository.save(any(Autor.class))).thenReturn(autorActualizado);
+        when(autorRepository.findById(1)).thenReturn(Optional.of(autor));
+        Autor autor2 = autorService.update(1, autorActualizado);
+        assertNotNull(autor2);
+        assertEquals(1, autor2.getIdAutor());
+        assertEquals("Neymar", autor2.getNombre());
+        verify(autorRepository).save(any(Autor.class));
+    }
+
+    @Test
+    public void testDelete(){
+        when(autorRepository.existsById(1)).thenReturn(false);
+        autorService.delete(1);
+        verify(autorRepository, times(0)).deleteById(1);
+    }
 
 
 }

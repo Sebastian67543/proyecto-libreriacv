@@ -1,19 +1,39 @@
 package com.distribuida.model;
 
+import jakarta.persistence.*;
+
+@Entity
+@Table(name = "factura_detalle")
 public class FacturaDetalle {
 
-    private int idFacuraDetalle;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id_factura_detalle")
+    private int idFacturaDetalle;
+
+    @Column(name = "cantidad")
     private int cantidad;
+
+    @Column(name = "subtotal")
     private Double subtotal;
+
+    @ManyToOne
+    @JoinColumn(name = "id_libro")
     private Libro libro;
+
+    @ManyToOne
+    @JoinColumn(name = "id_factura")
     private Factura factura;
+
+    @ManyToOne
+    @JoinColumn(name = "id_autor")
     private Autor autor;
 
     public FacturaDetalle() {
     }
 
-    public FacturaDetalle(int idFacuraDetalle, int cantidad, Double subtotal, Libro libro, Factura factura, Autor autor) {
-        this.idFacuraDetalle = idFacuraDetalle;
+    public FacturaDetalle(int idFacturaDetalle, int cantidad, Double subtotal, Libro libro, Factura factura, Autor autor) {
+        this.idFacturaDetalle = idFacturaDetalle;
         this.cantidad = cantidad;
         this.subtotal = subtotal;
         this.libro = libro;
@@ -21,12 +41,12 @@ public class FacturaDetalle {
         this.autor = autor;
     }
 
-    public int getIdFacuraDetalle() {
-        return idFacuraDetalle;
+    public int getIdFacturaDetalle() {
+        return idFacturaDetalle;
     }
 
-    public void setIdFacuraDetalle(int idFacuraDetalle) {
-        this.idFacuraDetalle = idFacuraDetalle;
+    public void setIdFacturaDetalle(int idFacturaDetalle) {
+        this.idFacturaDetalle = idFacturaDetalle;
     }
 
     public int getCantidad() {
@@ -72,7 +92,7 @@ public class FacturaDetalle {
     @Override
     public String toString() {
         return "FacturaDetalle{" +
-                "idFacuraDetalle=" + idFacuraDetalle +
+                "idFacturaDetalle=" + idFacturaDetalle +
                 ", cantidad=" + cantidad +
                 ", subtotal=" + subtotal +
                 ", libro=" + libro +

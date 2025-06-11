@@ -1,57 +1,70 @@
 package com.distribuida.model;
 
-
 import jakarta.persistence.*;
-
 import java.util.Date;
 
 @Entity
 @Table(name = "libro")
-
 public class Libro {
+
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id_libro")
     private int idlibro;
+
     @Column(name = "titulo")
     private String titulo;
+
     @Column(name = "editorial")
     private String editorial;
+
     @Column(name = "num_paginas")
     private int numpaginas;
+
     @Column(name = "edicion")
     private String edicion;
+
     @Column(name = "idioma")
     private String idioma;
+
     @Column(name = "fecha_publicacion")
     private Date fechapublicacion;
+
     @Column(name = "descripcion")
-    private String descipcion;
+    private String descripcion;
+
     @Column(name = "tipo_pasta")
     private String tipopasta;
+
     @Column(name = "isbn")
     private String isbn;
+
     @Column(name = "num_ejemplares")
     private int numejemplares;
+
     @Column(name = "portada")
     private String portada;
+
     @Column(name = "presentacion")
     private String presentacion;
+
     @Column(name = "precio")
     private Double precio;
 
     @ManyToOne
-    @JoinColumn(name = "id_autor")
-    private Autor autor;
-    @ManyToOne
     @JoinColumn(name = "id_categoria")
     private Categoria categoria;
+
+    @ManyToOne
+    @JoinColumn(name = "id_autor")
+    private Autor autor;
 
     public Libro() {
     }
 
-
-    public Libro(int idlibro, String titulo, String editorial, int numpaginas, String edicion, String idioma, Date fechapublicacion, String descipcion, String tipopasta, String isbn, int numejemplares, String portada, String presentacion, Double precio, Categoria categoria, Autor autor) {
+    public Libro(int idlibro, String titulo, String editorial, int numpaginas, String edicion, String idioma,
+                 Date fechapublicacion, String descripcion, String tipopasta, String isbn, int numejemplares,
+                 String portada, String presentacion, Double precio, Categoria categoria, Autor autor) {
         this.idlibro = idlibro;
         this.titulo = titulo;
         this.editorial = editorial;
@@ -59,7 +72,7 @@ public class Libro {
         this.edicion = edicion;
         this.idioma = idioma;
         this.fechapublicacion = fechapublicacion;
-        this.descipcion = descipcion;
+        this.descripcion = descripcion;
         this.tipopasta = tipopasta;
         this.isbn = isbn;
         this.numejemplares = numejemplares;
@@ -69,7 +82,6 @@ public class Libro {
         this.categoria = categoria;
         this.autor = autor;
     }
-
     public int getIdlibro() {
         return idlibro;
     }
@@ -126,12 +138,12 @@ public class Libro {
         this.fechapublicacion = fechapublicacion;
     }
 
-    public String getDescipcion() {
-        return descipcion;
+    public String getDescripcion() {
+        return descripcion;
     }
 
-    public void setDescipcion(String descipcion) {
-        this.descipcion = descipcion;
+    public void setDescripcion(String descripcion) {
+        this.descripcion = descripcion;
     }
 
     public String getTipopasta() {
@@ -198,6 +210,10 @@ public class Libro {
         this.autor = autor;
     }
 
+
+
+    // Getters y Setters...
+
     @Override
     public String toString() {
         return "Libro{" +
@@ -208,7 +224,7 @@ public class Libro {
                 ", edicion='" + edicion + '\'' +
                 ", idioma='" + idioma + '\'' +
                 ", fechapublicacion=" + fechapublicacion +
-                ", descipcion='" + descipcion + '\'' +
+                ", descripcion='" + descripcion + '\'' +
                 ", tipopasta='" + tipopasta + '\'' +
                 ", isbn='" + isbn + '\'' +
                 ", numejemplares=" + numejemplares +

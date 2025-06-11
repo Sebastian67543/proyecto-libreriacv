@@ -50,18 +50,20 @@ public class CategoriaRepositorioTestIntegracion {
 
     @Test
     public void update() {
-        Optional<Categoria> categoria = categoriaRepository.findById(40);
+        // Primero, guardar una categoría para asegurar que exista
+        Categoria nuevaCategoria = new Categoria(0, "Original", "Descripción original");
+        Categoria guardada = categoriaRepository.save(nuevaCategoria);
 
-        assertTrue(categoria.isPresent(), "La categoría con id = 40 debería existir para ser actualizada");
+        // Ahora actualizarla
+        guardada.setCategoria("Hogar");
+        guardada.setDescripcion("Productos para el hogar");
 
-        categoria.orElse(null).setCategoria("Hogar");
-        categoria.orElse(null).setDescripcion("Productos para el hogar");
-
-        Categoria categoriaActualizada = categoriaRepository.save(categoria.orElse(null));
+        Categoria categoriaActualizada = categoriaRepository.save(guardada);
 
         assertEquals("Hogar", categoriaActualizada.getCategoria());
         assertEquals("Productos para el hogar", categoriaActualizada.getDescripcion());
     }
+
 
     @Test
     public void delete() {

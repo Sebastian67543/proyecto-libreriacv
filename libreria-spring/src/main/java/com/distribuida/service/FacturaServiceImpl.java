@@ -11,7 +11,7 @@ import java.util.List;
 import java.util.Optional;
 
 @Service
-public class FacturaServiceImpl  implements FacturaService{
+public class FacturaServiceImpl implements FacturaService {
 
     @Autowired
     private FacturaRepository facturaRepository;
@@ -36,9 +36,8 @@ public class FacturaServiceImpl  implements FacturaService{
     }
 
     @Override
-    public Factura update(int id, int idCliente ,Factura factura) {
+    public Factura update(int id, int idCliente, Factura factura) {
         Factura facturaExistente = findOne(id);
-
 
         Optional<Cliente> clienteExistente = clienteRepository.findById(idCliente);
 
@@ -58,11 +57,11 @@ public class FacturaServiceImpl  implements FacturaService{
 
     @Override
     public void delete(int id) {
-        if (facturaRepository.existsById(id)) {
+        if (facturaRepository.existsById(id)){
             facturaRepository.deleteById(id);
         }
 
-    }
 
+    }
 }
 
