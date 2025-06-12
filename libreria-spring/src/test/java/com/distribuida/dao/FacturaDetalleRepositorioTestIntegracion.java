@@ -76,7 +76,7 @@ public class FacturaDetalleRepositorioTestIntegracion {
 
     @Test
     public void update() {
-        int facturaId = 87;
+        int facturaId = 1;
         int clienteId = 1;
 
         Optional<Factura> facturaExistente = facturaRepository.findById(facturaId);
