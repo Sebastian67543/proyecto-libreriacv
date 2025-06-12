@@ -71,23 +71,31 @@ public class FacturaRepositorioTestIntegracion {
 
     @Test
     public void update(){
-        Optional<Factura> facturaExistente = facturaRepository.findById(86);
-        Optional<Cliente> cliente = clienteRepository.findById(2);
+        int facturaId = 87;
+        int clienteId = 1;
 
-        assertTrue(cliente.isPresent());
+        Optional<Factura> facturaExistenteOpt = facturaRepository.findById(facturaId);
+        Optional<Cliente> clienteOpt = clienteRepository.findById(clienteId);
 
-        facturaExistente.orElse(null).setNumFactura("FAC-0100");
-        facturaExistente.orElse(null).setFecha(new Date());
-        facturaExistente.orElse(null).setTotalNeto(200.00);
-        facturaExistente.orElse(null).setIva(30.00);
-        facturaExistente.orElse(null).setTotal(230.00);
-        facturaExistente.orElse(null).setCliente(cliente.orElse(null));
+        assertTrue(facturaExistenteOpt.isPresent(), "Factura no encontrada para el id: " + facturaId);
+        assertTrue(clienteOpt.isPresent(), "Cliente no encontrado para el id: " + clienteId);
 
-        Factura facturaActualizada = facturaRepository.save(facturaExistente.orElse(null));
-        assertEquals(230, facturaActualizada.getTotal());
-        
+        Factura facturaExistente = facturaExistenteOpt.get();
+        Cliente cliente = clienteOpt.get();
 
+        facturaExistente.setNumFactura("FAC-0100");
+        facturaExistente.setFecha(new Date());
+        facturaExistente.setTotalNeto(200.00);
+        facturaExistente.setIva(30.00);
+        facturaExistente.setTotal(230.00);
+        facturaExistente.setCliente(cliente);
+
+        Factura facturaActualizada = facturaRepository.save(facturaExistente);
+
+        assertEquals(230.00, facturaActualizada.getTotal(), 0.01);
+        System.out.println("Factura actualizada: " + facturaActualizada);
     }
+
 
     @Test
     public void delete(){

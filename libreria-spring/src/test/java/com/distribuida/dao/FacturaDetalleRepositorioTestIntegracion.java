@@ -1,9 +1,6 @@
 package com.distribuida.dao;
 
-import com.distribuida.model.Autor;
-import com.distribuida.model.Factura;
-import com.distribuida.model.FacturaDetalle;
-import com.distribuida.model.Libro;
+import com.distribuida.model.*;
 import jakarta.transaction.Transactional;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,6 +8,7 @@ import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabas
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.test.annotation.Rollback;
 
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -19,84 +17,101 @@ import static org.junit.jupiter.api.Assertions.*;
 @DataJpaTest
 @AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
 @Transactional
-@Rollback(false)
+@Rollback(value = false) // Para que persista y puedas ver cambios si lo necesitas
 public class FacturaDetalleRepositorioTestIntegracion {
 
     @Autowired
     private FacturaDetalleRepository facturaDetalleRepository;
 
     @Autowired
-    private LibroRepository libroRepository;
+    private FacturaRepository facturaRepository;
 
     @Autowired
-    private FacturaRepository facturaRepository;
+    private LibroRepository libroRepository;
 
     @Autowired
     private AutorRepository autorRepository;
 
+    @Autowired
+    private ClienteRepository clienteRepository;
+
     @Test
     public void findAll() {
-        List<FacturaDetalle> detalles = facturaDetalleRepository.findAll();
-        assertNotNull(detalles);
-        for (FacturaDetalle detalle : detalles) {
-            System.out.println(detalle);
+        List<Factura> facturas = facturaRepository.findAll();
+        assertNotNull(facturas);
+        for (Factura item: facturas){
+            System.out.println(item.toString());
         }
     }
 
     @Test
     public void findOne() {
-        Optional<FacturaDetalle> detalle = facturaDetalleRepository.findById(1);
-        assertTrue(detalle.isPresent());
-        System.out.println(detalle.get());
+        Optional<Factura> factura = facturaRepository.findById(1);
+
+        assertTrue(factura.isPresent());
+
+        System.out.println(factura.toString());
     }
 
     @Test
     public void save() {
-        Optional<Libro> libro = libroRepository.findById(1);
-        Optional<Factura> factura = facturaRepository.findById(1);
-        Optional<Autor> autor = autorRepository.findById(1);
+        Factura factura = new Factura();
 
-        assertTrue(libro.isPresent());
-        assertTrue(factura.isPresent());
-        assertTrue(autor.isPresent());
+        Optional<Cliente> cliente = clienteRepository.findById(1);
 
-        FacturaDetalle detalle = new FacturaDetalle();
-        detalle.setCantidad(3);
-        detalle.setSubtotal(180.0);
-        detalle.setLibro(libro.get());
-        detalle.setFactura(factura.get());
-        detalle.setAutor(autor.get());
+        assertTrue(cliente.isPresent());
+        factura.setIdFactura(0);
+        factura.setNumFactura("FAC-0002");
+        factura.setFecha(new Date());
+        factura.setTotalNeto(120.00);
+        factura.setIva(10.00);
+        factura.setTotal(130.00);
+        factura.setCliente(cliente.orElse(null));
 
-        FacturaDetalle guardado = facturaDetalleRepository.save(detalle);
-        assertNotNull(guardado.getIdFacturaDetalle());
-        System.out.println("Guardado: " + guardado);
+        Factura facturaGuardada = facturaRepository.save(factura);
+
+        facturaRepository.save(factura);
+
     }
 
     @Test
     public void update() {
-        Optional<FacturaDetalle> opt = facturaDetalleRepository.findById(1);
-        assertTrue(opt.isPresent());
+        int facturaId = 87;
+        int clienteId = 1;
 
-        FacturaDetalle detalle = opt.get();
-        detalle.setCantidad(7);
-        detalle.setSubtotal(350.0);
+        Optional<Factura> facturaExistente = facturaRepository.findById(facturaId);
+        Optional<Cliente> clienteExistente = clienteRepository.findById(clienteId);
 
-        FacturaDetalle actualizado = facturaDetalleRepository.save(detalle);
-        assertEquals(7, actualizado.getCantidad());
-        assertEquals(350.0, actualizado.getSubtotal());
-        System.out.println("Actualizado: " + actualizado);
+        assertTrue(facturaExistente.isPresent(),"Factura no encontrada para el id: "+facturaId);
+        assertTrue(clienteExistente.isPresent(),"Cliente no encontrado para el id: "+clienteId);
+
+        Factura facturaExistente1 = facturaExistente.get();
+        Cliente cliente = clienteExistente.get();
+
+        facturaExistente1.setNumFactura("FAC-0150");
+        facturaExistente1.setFecha(new Date());
+        facturaExistente1.setTotalNeto(320.00);
+        facturaExistente1.setIva(15.00);
+        facturaExistente1.setTotal(325.00);
+        facturaExistente1.setCliente(cliente);
+
+        Factura facturaActualizada = facturaRepository.save(facturaExistente1);
+
+        assertEquals(325.00, facturaActualizada.getTotal(),0.01);
+        System.out.println("Factura Actualizada: "+facturaActualizada);
+
     }
 
     @Test
     public void delete() {
-        int id = 5; // Cambiar si es necesario
-        if (facturaDetalleRepository.existsById(id)) {
-            facturaDetalleRepository.deleteById(id);
-            Optional<FacturaDetalle> eliminado = facturaDetalleRepository.findById(id);
-            assertFalse(eliminado.isPresent());
-            System.out.println("Eliminado correctamente");
-        } else {
-            System.out.println("No se encontró el ID " + id);
-        }
+       if (facturaRepository.existsById(87)){
+           facturaRepository.deleteById(87);
+
+           Optional<Factura> facturaEliminada = facturaRepository.findById(87);
+           assertFalse(facturaEliminada.isPresent());
+
+       }
     }
 }
+
+
