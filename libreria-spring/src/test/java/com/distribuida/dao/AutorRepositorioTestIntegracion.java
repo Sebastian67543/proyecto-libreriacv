@@ -42,7 +42,7 @@ public class AutorRepositorioTestIntegracion {
 
     @Test
     public void save() {
-        Autor autor = new Autor(0, "Gabriel", "García Márquez", "Colombia", "Aracataca", "0987654321", "gabriel@example.com");
+        Autor autor = new Autor(0, "Marco", "Asencio", "España", "Madrid", "0987653221", "marco@example.com");
         autorRepository.save(autor);
         assertNotNull(autor.getIdAutor(), "El autor guardado debe tener un ID.");
         assertEquals("Gabriel", autor.getNombre());
@@ -54,12 +54,12 @@ public class AutorRepositorioTestIntegracion {
 
         assertTrue(autor.isPresent(), "El autor con id = 40 debería existir para ser actualizado");
 
-        autor.orElse(null).setNombre("Mario");
-        autor.orElse(null).setApellido("Vargas Llosa");
-        autor.orElse(null).setPais("Perú");
-        autor.orElse(null).setDireccion("Lima");
-        autor.orElse(null).setTelefono("0991234567");
-        autor.orElse(null).setCorreo("mario@example.com");
+        autor.orElse(null).setNombre("Issac");
+        autor.orElse(null).setApellido("Vargas");
+        autor.orElse(null).setPais("Chile");
+        autor.orElse(null).setDireccion("Santiago");
+        autor.orElse(null).setTelefono("0993434567");
+        autor.orElse(null).setCorreo("issac@example.com");
 
         Autor autorActualizado = autorRepository.save(autor.orElse(null));
 
