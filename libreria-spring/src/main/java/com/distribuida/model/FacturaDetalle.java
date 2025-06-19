@@ -25,9 +25,9 @@ public class FacturaDetalle {
     @JoinColumn(name = "id_factura")
     private Factura factura;
 
-    @ManyToOne
-    @JoinColumn(name = "id_autor")
-    private Autor autor;
+    //@ManyToOne
+    //@JoinColumn(name = "id_autor")
+    //private Autor autor;
 
     public FacturaDetalle() {
     }
@@ -38,7 +38,7 @@ public class FacturaDetalle {
         this.subtotal = subtotal;
         this.libro = libro;
         this.factura = factura;
-        this.autor = autor;
+        //this.autor = autor;
     }
 
     public int getIdFacturaDetalle() {
@@ -81,13 +81,13 @@ public class FacturaDetalle {
         this.factura = factura;
     }
 
-    public Autor getAutor() {
-        return autor;
-    }
+    //public Autor getAutor() {
+        //return autor;
+    //}
 
-    public void setAutor(Autor autor) {
-        this.autor = autor;
-    }
+    //public void setAutor(Autor autor) {
+        //this.autor = autor;
+    //}
 
     @Override
     public String toString() {
@@ -97,7 +97,7 @@ public class FacturaDetalle {
                 ", subtotal=" + subtotal +
                 ", libro=" + libro +
                 ", factura=" + factura +
-                ", autor=" + autor +
+                //", autor=" + autor +
                 '}';
     }
 }

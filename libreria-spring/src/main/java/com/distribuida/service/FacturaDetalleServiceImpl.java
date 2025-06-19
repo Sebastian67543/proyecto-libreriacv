@@ -48,7 +48,7 @@ public class FacturaDetalleServiceImpl implements FacturaDetalleService {
         detalleExistente.setSubtotal(facturaDetalleNuevo.getSubtotal());
         detalleExistente.setLibro(facturaDetalleNuevo.getLibro());
         detalleExistente.setFactura(facturaDetalleNuevo.getFactura());
-        detalleExistente.setAutor(facturaDetalleNuevo.getAutor());
+        //detalleExistente.setAutor(facturaDetalleNuevo.getAutor());
 
         return facturaDetalleRepository.save(detalleExistente);
     }
