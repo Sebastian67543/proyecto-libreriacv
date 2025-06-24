@@ -42,7 +42,7 @@ public class LibroController {
         int idCategoria = libro.getCategoria().getIdCategoria(); // asegúrate que existan estos getters
         int idAutor = libro.getAutor().getIdAutor();
 
-        Libro libroActualizado = libroService.update(id, idCategoria, idAutor, libro);
+        Libro libroActualizado = libroService.update(id, libro);
         if (libroActualizado == null) {
             return ResponseEntity.notFound().build();
         }

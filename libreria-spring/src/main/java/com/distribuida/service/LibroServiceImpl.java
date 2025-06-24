@@ -42,10 +42,10 @@ public class LibroServiceImpl implements LibroService {
     }
 
     @Override
-    public Libro update(int id, int idCategoria, int idAutor, Libro libro) {
+    public Libro update(int id, Libro libro) {
         Libro libroExistente = findOne(id);
-        Optional<Categoria> categoriaExistente = categoriaRepository.findById(idCategoria);
-        Optional<Autor> autorExistente = autorRepository.findById(idAutor);
+        Optional<Categoria> categoriaExistente = categoriaRepository.findById(id);
+        Optional<Autor> autorExistente = autorRepository.findById(id);
 
         if (libroExistente == null) {
             return null;

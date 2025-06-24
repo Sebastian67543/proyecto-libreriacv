@@ -12,7 +12,8 @@ public interface LibroService {
 
     Libro save(Libro libro);
 
-    Libro update(int id, int idCategoria, int idAutor, Libro libro);
+    Libro update(int id, Libro libro);
 
     void delete(int id);
+
 }
