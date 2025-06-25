@@ -36,10 +36,10 @@ public class FacturaServiceImpl implements FacturaService {
     }
 
     @Override
-    public Factura update(int id, int idCliente, Factura factura) {
+    public Factura update(int id, Factura factura) {
         Factura facturaExistente = findOne(id);
 
-        Optional<Cliente> clienteExistente = clienteRepository.findById(idCliente);
+        Optional<Cliente> clienteExistente = clienteRepository.findById(id);
 
         if(facturaExistente == null){
             return null;

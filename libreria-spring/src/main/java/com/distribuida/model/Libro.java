@@ -82,6 +82,8 @@ public class Libro {
         this.categoria = categoria;
         this.autor = autor;
     }
+
+
     public int getIdlibro() {
         return idlibro;
     }

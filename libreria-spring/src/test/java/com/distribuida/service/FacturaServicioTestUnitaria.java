@@ -82,7 +82,7 @@ public class FacturaServicioTestUnitaria {
         when(facturaRepository.findById(1)).thenReturn(Optional.of(factura));
         when(facturaRepository.save(any(Factura.class))).thenReturn(facturaActualizada);
         when(clienteRepository.findById(1)).thenReturn(Optional.of(cliente));
-        Factura factura1 = facturaService.update(1,1, facturaActualizada);
+        Factura factura1 = facturaService.update(1, facturaActualizada);
         assertNotNull(factura1);
         assertEquals("FAC-0002", factura1.getNumFactura());
         assertEquals(218.00, factura1.getTotal());
