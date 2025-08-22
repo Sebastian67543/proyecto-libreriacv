@@ -5,6 +5,8 @@ import com.distribuida.dao.CarritoRepository;
 import com.distribuida.dao.ClienteRepository;
 import com.distribuida.dao.LibroRepository;
 import com.distribuida.model.Carrito;
+import com.distribuida.model.CarritoItem;
+import jakarta.transaction.Transactional;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
@@ -34,13 +36,53 @@ public class CarritoServiceImpl implements CarritoService{
 
 
     @Override
+    @Transactional
     public Carrito getOrCreateByClienteId(int clienteId, String token) {
-        return null;
+        var cliente = clienteRepository.findById(clienteId)
+                .orElseThrow(() -> new IllegalArgumentException("Cliente no encontrado"+ clienteId));
+
+        var carritoOpt = carritoRepository.findByCliente(cliente);
+        if (carritoOpt.isPresent()) return carritoOpt.get();
+
+        var carrito = new Carrito();
+        carrito.setCliente(cliente);
+        carrito.setToken(token);
+        carrito.recomprobacionTotalesCompat();
+
+        return carritoRepository.save(carrito);
+
+
     }
 
     @Override
+    @Transactional
     public Carrito addItem(int clienteId, int libroId, int cantidad) {
-        return null;
+
+
+        if (cantidad <= 0) throw new IllegalArgumentException("Cantidad debe ser > 0");
+
+        var carrito = getOrCreateByClienteId(clienteId, null);
+        var libro = libroRepository.findById(libroId)
+                .orElseThrow(() -> new IllegalArgumentException("Libro no encontrado: " + libroId));
+
+        var itemOpt = carritoItemRepository.findByCarritoAndLibro(carrito, libro);
+        if (itemOpt.isPresent()) {
+            var item = itemOpt.get();
+            item.setCantidad(item.getCantidad() + cantidad);
+            item.setPrecioUnitario(BigDecimal.valueOf(libro.getPrecio()));
+            item.calcTotal();
+            carritoItemRepository.save(item);
+        } else {
+            var item = new CarritoItem();
+            item.setCarrito(carrito);
+            item.setLibro(libro);
+            item.setCantidad(cantidad);
+            item.setPrecioUnitario(BigDecimal.valueOf(libro.getPrecio()));
+            item.calcTotal();
+            carrito.getItems().add(item);
+        }
+        carrito.recomputarTotales(IVA);
+        return carritoRepository.save(carrito);
     }
 
     @Override
